@@ -43,7 +43,7 @@ export const projects = [
     ],
     cover: { a: '#a78bfa', b: '#06070b', kind: 'orbit', heading: 'SHLOK', sub: '.DEV / 2026' },
     href: '#',
-    github: 'https://github.com/Jokeiz/shloks-portfolio',
+    github: 'https://github.com/Jokeiz/portfolio',
   },
   {
     id: 'threadly',
