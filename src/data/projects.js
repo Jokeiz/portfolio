@@ -42,7 +42,7 @@ export const projects = [
       { v: '60fps', l: 'Hero 3D scene' },
     ],
     cover: { a: '#a78bfa', b: '#06070b', kind: 'orbit', heading: 'SHLOK', sub: '.DEV / 2026' },
-    href: '#',
+    href: 'https://shloksportfolio-ebon-zeta-80.vercel.app/',
     github: 'https://github.com/Jokeiz/portfolio',
   },
   {
