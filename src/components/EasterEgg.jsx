@@ -30,7 +30,9 @@ export default function EasterEgg({ onClose }) {
           being a nerd.
         </p>
         <a
-          href="mailto:shlokrikki@gmail.com?subject=Konami%20code%20discount"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=shlokrikki@gmail.com&su=Konami%20code%20discount"
+          target="_blank"
+          rel="noreferrer"
           className="btn-primary"
           onClick={onClose}
         >

@@ -1,4 +1,19 @@
+import { useState } from 'react';
+
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText('shlokrikki@gmail.com');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* very old browser — silent fall-through */
+    }
+  };
+
   return (
     <footer className="relative border-t border-white/5 pt-16 pb-10 bg-ink-950">
       <div className="container-x">
@@ -31,7 +46,7 @@ export default function Footer() {
               <li><a href="#about" className="link-underline hover:text-accent transition-colors">About</a></li>
               <li><a href="#stack" className="link-underline hover:text-accent transition-colors">Stack</a></li>
               <li><a href="#work" className="link-underline hover:text-accent transition-colors">Work</a></li>
-              <li><a href="#process" className="link-underline hover:text-accent transition-colors">Process</a></li>
+              <li><a href="#lab" className="link-underline hover:text-accent transition-colors">Lab</a></li>
               <li><a href="#contact" className="link-underline hover:text-accent transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -41,7 +56,16 @@ export default function Footer() {
               Elsewhere
             </div>
             <ul className="space-y-2 text-sm text-slate-250">
-              <li><a href="mailto:shlokrikki@gmail.com" className="link-underline hover:text-accent transition-colors">shlokrikki@gmail.com</a></li>
+              <li>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  className="link-underline hover:text-accent transition-colors text-left"
+                  aria-label="Copy email to clipboard"
+                >
+                  {copied ? 'Copied — paste anywhere' : 'shlokrikki@gmail.com'}
+                </button>
+              </li>
               <li><a href="https://wa.me/917060303707" target="_blank" rel="noreferrer" className="link-underline hover:text-accent transition-colors">WhatsApp · +91 70603 03707</a></li>
               <li><a href="https://github.com/Jokeiz" target="_blank" rel="noreferrer" className="link-underline hover:text-accent transition-colors">github.com/Jokeiz</a></li>
               <li><a href="https://www.linkedin.com/in/shlok-pathak-0a96031a7/" target="_blank" rel="noreferrer" className="link-underline hover:text-accent transition-colors">LinkedIn · shlok-pathak</a></li>
