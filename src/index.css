@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --accent: #7df9d4;
+  --accent-dim: #2fa085;
+  --bg: #06070b;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background: var(--bg);
+  overflow-x: hidden;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+::selection {
+  background: var(--accent);
+  color: #06070b;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0a0c12; }
+::-webkit-scrollbar-thumb { background: #1a1e29; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #252b3b; }
+
+/* Hide default cursor on devices that have a fine pointer (real mouse) */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role="button"], .clickable { cursor: none; }
+}
+
+/* Layered noise + grid background */
+.bg-stage {
+  position: relative;
+  isolation: isolate;
+}
+.bg-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(125,249,212,0.045) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(125,249,212,0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* .noise overlay removed — feTurbulence + mix-blend-mode is expensive at full
+   viewport. The faint grain wasn't load-bearing aesthetically. */
+
+/* Reusable utility classes */
+@layer components {
+  .container-x {
+    @apply max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16;
+  }
+  .eyebrow {
+    @apply font-mono text-xs tracking-[0.2em] uppercase text-accent;
+  }
+  .section-title {
+    @apply font-display text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-slate-150;
+  }
+  .glass {
+    /* backdrop-blur-md (12px) instead of xl (24px) — same frosted look,
+       roughly half the GPU cost since blur scales quadratically with kernel.
+       The slight bump in bg opacity compensates for the reduced blur. */
+    @apply bg-white/[0.04] backdrop-blur-md border border-white/[0.06];
+  }
+  .glow-ring {
+    box-shadow: 0 0 0 1px rgba(125,249,212,0.18), 0 10px 40px -10px rgba(125,249,212,0.25);
+  }
+  .text-gradient {
+    background: linear-gradient(120deg, #ffffff 0%, #cdd5e1 40%, #7df9d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-accent transition-all duration-500;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+  .magnet {
+    @apply transition-transform duration-300 ease-out;
+  }
+  .number-tag {
+    @apply font-mono text-xs text-accent/80 tracking-widest;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-3 px-7 py-4 rounded-full bg-accent text-ink-950 font-medium transition-all duration-300 hover:bg-accent-glow hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-3 px-7 py-4 rounded-full border border-white/15 text-slate-150 font-medium transition-all duration-300 hover:border-accent/50 hover:text-accent;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-slate-250 border border-white/10 bg-white/[0.02];
+  }
+}
+
+/* Split text reveal */
+.reveal-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.reveal-mask > * {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* Marquee fix */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* 3D tilt */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.tilt-card .tilt-inner {
+  transform-style: preserve-3d;
+}
+.tilt-card .tilt-layer {
+  transform: translateZ(40px);
+}
+
+/* Custom cursor — no mix-blend-mode (forces full-viewport composite, kills FPS).
+   Plain semi-transparent white reads almost as well on this dark theme. */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(205, 213, 225, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(125,249,212,0.9);
+  background: rgba(125,249,212,0.08);
+}
+
+/* Loader */
+.loader-bar {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.loader-bar > span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  width: 50%;
+  transform: translateX(-100%);
+  animation: loader-slide 1.4s ease-in-out infinite;
+}
+@keyframes loader-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Section divider */
+.divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* Project card */
+.project-cover {
+  position: relative;
+  aspect-ratio: 16/10;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cover-a, #1a1e29), var(--cover-b, #06070b));
+  isolation: isolate;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
