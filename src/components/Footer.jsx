@@ -1,19 +1,6 @@
-import { useState } from 'react';
+const GMAIL_COMPOSE = 'https://mail.google.com/mail/?view=cm&fs=1&to=shlokrikki@gmail.com';
 
 export default function Footer() {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async (e) => {
-    e.preventDefault();
-    try {
-      await navigator.clipboard.writeText('shlokrikki@gmail.com');
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* very old browser — silent fall-through */
-    }
-  };
-
   return (
     <footer className="relative border-t border-white/5 pt-16 pb-10 bg-ink-950">
       <div className="container-x">
@@ -57,14 +44,14 @@ export default function Footer() {
             </div>
             <ul className="space-y-2 text-sm text-slate-250">
               <li>
-                <button
-                  type="button"
-                  onClick={copyEmail}
-                  className="link-underline hover:text-accent transition-colors text-left"
-                  aria-label="Copy email to clipboard"
+                <a
+                  href={GMAIL_COMPOSE}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-underline hover:text-accent transition-colors"
                 >
-                  {copied ? 'Copied — paste anywhere' : 'shlokrikki@gmail.com'}
-                </button>
+                  shlokrikki@gmail.com
+                </a>
               </li>
               <li><a href="https://wa.me/917060303707" target="_blank" rel="noreferrer" className="link-underline hover:text-accent transition-colors">WhatsApp · +91 70603 03707</a></li>
               <li><a href="https://github.com/Jokeiz" target="_blank" rel="noreferrer" className="link-underline hover:text-accent transition-colors">github.com/Jokeiz</a></li>

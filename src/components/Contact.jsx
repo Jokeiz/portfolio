@@ -25,18 +25,6 @@ export default function Contact() {
     message: '',
   });
   const [sent, setSent] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // Copy email to clipboard with a 1.6s "Copied" toast.
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText('shlokrikki@gmail.com');
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // very old browsers — fall through silently
-    }
-  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -108,30 +96,24 @@ export default function Contact() {
             </div>
 
             <div className="mt-6 space-y-4">
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="w-full flex items-center justify-between p-5 glass rounded-xl group hover:border-accent/40 transition-all text-left"
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=shlokrikki@gmail.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between p-5 glass rounded-xl group hover:border-accent/40 transition-all"
               >
                 <div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-slate-450 mb-1">
-                    {copied ? 'Copied to clipboard' : 'Email · click to copy'}
+                    Email · opens Gmail
                   </div>
                   <div className="text-slate-150 group-hover:text-accent transition-colors">
                     shlokrikki@gmail.com
                   </div>
                 </div>
-                {copied ? (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7df9d4" strokeWidth="2">
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                ) : (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-slate-450 group-hover:text-accent transition-all">
-                    <rect x="9" y="9" width="13" height="13" rx="2" />
-                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
-                  </svg>
-                )}
-              </button>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-slate-450 group-hover:text-accent group-hover:translate-x-1 transition-all">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </a>
 
               <a
                 href="https://wa.me/917060303707?text=Hi%20Shlok%2C%20I%20saw%20your%20portfolio%20and..."
