@@ -29,20 +29,20 @@ export const projects = [
   {
     id: 'shlok-dev',
     status: 'LIVE',
-    title: 'shlok.dev',
-    subtitle: 'This very portfolio',
+    title: 'shlokpathak.dev',
+    subtitle: 'Live at shlokpathak.dev',
     year: '2026',
     role: 'Solo · Design + dev',
     duration: '6 days',
     summary:
-      'The site you are looking at. Custom Three.js scenes, scroll-driven motion, magnetic interactions, keyboard-driven navigation, a playable guitar fretboard, and zero templates. Built to be the proof, not just a brochure.',
+      'The site you are looking at. Custom Three.js scenes, scroll-driven motion, magnetic interactions, keyboard-driven navigation, a playable guitar fretboard, an interactive logic-gate lab, and zero templates. Built to be the proof, not just a brochure.',
     stack: ['React', 'Three.js', 'GSAP', 'Tailwind'],
     metrics: [
       { v: '<1.4s', l: 'LCP · production' },
-      { v: '60fps', l: 'Hero 3D scene' },
+      { v: 'Live', l: 'shlokpathak.dev' },
     ],
-    cover: { a: '#a78bfa', b: '#06070b', kind: 'orbit', heading: 'SHLOK', sub: '.DEV / 2026' },
-    href: 'https://shloksportfolio.vercel.app/',
+    cover: { a: '#a78bfa', b: '#06070b', kind: 'orbit', heading: 'SHLOK', sub: 'PATHAK.DEV / 2026' },
+    href: 'https://shlokpathak.dev/',
     github: 'https://github.com/Jokeiz/portfolio',
   },
   {
