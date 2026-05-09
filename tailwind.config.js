@@ -33,8 +33,10 @@ export default {
         mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
-        'mega': ['clamp(3.5rem, 12vw, 11rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
-        'huge': ['clamp(2.5rem, 7vw, 5.5rem)', { lineHeight: '1', letterSpacing: '-0.03em' }],
+        // Tamed from 12vw/11rem — was overflowing on 14"+ displays. New
+        // values keep the hero striking but never spill out of the viewport.
+        'mega': ['clamp(2.75rem, 7.5vw, 6.5rem)', { lineHeight: '0.95', letterSpacing: '-0.035em' }],
+        'huge': ['clamp(2.25rem, 5.5vw, 4.5rem)', { lineHeight: '1', letterSpacing: '-0.03em' }],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
