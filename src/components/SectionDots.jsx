@@ -7,6 +7,7 @@ const SECTIONS = [
   { id: 'work', label: 'Work' },
   { id: 'lab', label: 'Lab' },
   { id: 'play', label: 'Play' },
+  { id: 'investment', label: 'Pricing' },
   { id: 'contact', label: 'Contact' },
 ];
 

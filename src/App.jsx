@@ -12,6 +12,7 @@ import Fretboard from './components/Fretboard';
 import LogicLab from './components/LogicLab';
 import Experience from './components/Experience';
 import Testimonials from './components/Testimonials';
+import Investment from './components/Investment';
 import Contact from './components/Contact';
 import Telemetry from './components/Telemetry';
 import Footer from './components/Footer';
@@ -72,6 +73,7 @@ export default function App() {
         <Fretboard />
         <Experience />
         <Testimonials />
+        <Investment />
         <Contact />
       </main>
 
